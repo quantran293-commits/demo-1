@@ -1,0 +1,5 @@
+Giải thích các câu lệnh:
+1. git init: khởi tạo project, biến thư mục hiện tại thành 1 project Git
+2. git add <file_name>: đưa 1 file cụ thể vào staging area
+3. git add .: đưa tất cả file thay đổi vào staging area
+4. git commit -m “message”: commit code
