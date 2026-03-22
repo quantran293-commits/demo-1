@@ -1,4 +1,4 @@
-let number = 12;
+const number = 12;
 let name = "my number";
 let isEven = false;
 

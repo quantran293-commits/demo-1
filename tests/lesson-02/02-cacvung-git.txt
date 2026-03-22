@@ -1,0 +1,18 @@
+a. Tạo 3 file: file1, file2, file3
+    Local: file1, file2, file3
+    Staging area: trống
+b. Chạy lệnh: git init
+    Local: file1, file2, file3
+    Staging area: trống
+c. Chạy lệnh: git commit -m”init project”
+    Local: file1, file2, file3
+    Staging area: trống
+d. Chạy lệnh: git add file1
+    Local: file1, file2, file3
+    Staging area: file1
+e. Chạy lệnh: git commit -m”add file1”
+    Local: file1, file2, file3
+    Staging area: trống
+    Repository: file1
+f. Chạy lệnh: git commit -m”add file”
+    Error -> không có file nào tên file
