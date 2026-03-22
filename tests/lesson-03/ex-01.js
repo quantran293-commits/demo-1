@@ -4,3 +4,5 @@ if ( number > 0){
 } else if (number < 0){
     console.log("so am")
 }
+
+//so duong
