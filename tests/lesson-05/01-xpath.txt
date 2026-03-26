@@ -1,0 +1,10 @@
+1.
+a. /html/body/div/div[1]/form/input[1]
+b. /html/body/div/div[1]/form/button
+c. /html/body/div/div[2]/table/tbody/tr[1]
+2. 
+a. //input[@placeholder='Số điện thoại']
+b. //td[text()='binh.tran@email.com']
+c. //td[text()='0923456789']
+d. //button[@class='btn-register']
+e. //table[@id='resultTable']
