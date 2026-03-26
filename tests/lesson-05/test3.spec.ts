@@ -1,32 +1,54 @@
 import { test, expect } from '@playwright/test';
 
-test('has title', async ({ page }) => {
+test('Todo test', async ({ page }) => {
   await page.goto('https://material.playwrightvn.com/');
 
-  // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle("Tài liệu học automation test - Playwright Việt Nam");
 
   await page.locator("//a[text()='Bài học 3: Todo page']").click();
 
- const input = page.locator("//input[@id='new-task']");
- const addTaskButton = page.locator("//button[@id='add-task']");
-
- for(let i = 0; i < 100; i++){
-  await input.fill(`Todo ${i}`);
-  await addTaskButton.click();
- }
-
-const todos = page.locator('.todo-item');
-let count = await todos.count();
-
-for (let i = count - 1; i >= 0; i--) {
-  const todo = todos.nth(i);
-  const text = await todo.innerText();
-  const number = parseInt(text.split(' ')[1]);
-
-if (number % 2 !== 0) {
-    page.on('dialog', async dialog => dialog.accept())
-    await todo.locator(".//button[text()='Delete']").click();
+  async function addNewTask(content: string, times: number) {
+    for (let i = 1; i <= times; i++) {
+      await page.fill("#new-task", `${content} ${i}`);
+      await page.click("#add-task");
+    }
   }
-}
+
+  async function deleteNewTask() {
+    const locatorTaskList = page.locator("//ul[@id='task-list']/li/span");
+    const count = await locatorTaskList.count();
+
+    let conterArr: string[] = [];
+
+    for (let i = 0; i < count; i++) {
+      const content = await locatorTaskList.nth(i).innerText();
+
+      let num = parseInt(content.replace(/[^0-9]/g, ''));
+      if (num % 2 !== 0) {
+        conterArr.push(content);
+      }
+    }
+
+    console.log(conterArr);
+
+    for (let i = 0; i < conterArr.length; i++) {
+      const locatorDelete = `//li//span[text()="${conterArr[i]}"]/../div//button[text()="Delete"]`;
+
+      await page.locator(locatorDelete).waitFor({ state: 'visible' });
+
+      page.once('dialog', async dialog => {
+        await dialog.accept();
+      });
+
+      await page.click(locatorDelete);
+    }
+  }
+
+  await test.step('Thêm 100 todo', async () => {
+    await addNewTask("Todo", 100);
+  });
+
+  await test.step("Xóa các todo số lẻ", async () => {
+    await deleteNewTask();
+  });
 });
